@@ -21,17 +21,17 @@ model Country {
   capital   String
   latitude  Int
   longitude Int
-  City      City[]
+  states     State[]
 }
 
-model City {
+model State {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String
+  code      String
   latitude  String
   longitude String
-  isCapital Boolean
   country   Country  @relation(fields: [countryId], references: [id])
   countryId Int
 }
