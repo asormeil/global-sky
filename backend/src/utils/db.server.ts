@@ -19,7 +19,8 @@ declare global {
 // in nodejs the global object == window in js
 
 if (!global.__db) {
-  global.__db = new PrismaClient();
+  global.__db = new PrismaClient({log:["error", "warn", "query", "info"]});
+  
 }
 
 db = global.__db;

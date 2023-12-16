@@ -11,27 +11,29 @@ datasource db {
 }
 
 model Country {
-  id        Int      @id @default(autoincrement())
+  ID        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String
   iso2      String
-  dial_code String
+  dialCode  String
   flag      String
+  region    String
+  native    String 
   capital   String
-  latitude  Int
-  longitude Int
+  latitude  String
+  longitude String
   states     State[]
 }
 
 model State {
-  id        Int      @id @default(autoincrement())
+  ID        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String
   code      String
   latitude  String
   longitude String
-  country   Country  @relation(fields: [countryId], references: [id])
-  countryId Int
+  country   Country  @relation(fields: [countryID], references: [ID])
+  countryID Int
 }

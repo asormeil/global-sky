@@ -1,5 +1,9 @@
 export type Country = {
-  id: number;
+  /**
+   * optional ID --> db will generate ity, we might need it
+   * for our dev 
+   */
+  ID: number;
   name: string;
   iso2: string;
   dialCode: string;
@@ -7,15 +11,16 @@ export type Country = {
   region: string;
   native: string;
   capital: string;
-  latitude: number;
-  longitude: number;
+  latitude: string;
+  longitude: string;
 };
 
 export type State = {
-  id: string;
+  ID: number;
   name: string;
   code: string;
   latitude: string;
   longitude: string;
-  countryID: number;
+  countryName: string;
+  countryID?: number;
 };
