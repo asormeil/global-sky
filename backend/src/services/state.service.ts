@@ -23,7 +23,7 @@ export async function stateList(): Promise<any> {
 
 export async function stateListByCountry(
     inputCountryName: string
-): Promise<State[] | null> {
+): Promise<State[]> {
     const states = await db.state.findMany({
         where: {
             country: { name: inputCountryName },
