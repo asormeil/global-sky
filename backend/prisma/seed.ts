@@ -1,16 +1,16 @@
-const fs = require('fs').promises
-const path = require('path')
+const fs = require("fs").promises
+const path = require("path")
 
-import { Country, State } from '../src/types'
-import { db } from '../src/utils/db.server'
+import { Country, State } from "../src/types"
+import { db } from "../src/utils/db.server"
 
 async function readFiles(): Promise<[Array<Country>, Array<State>]> {
-    const filePath = path.join(__dirname, './countries.json')
+    const filePath = path.join(__dirname, "./countries.json")
     try {
-        const data = await fs.readFile(filePath, 'utf8')
+        const data = await fs.readFile(filePath, "utf8")
         return getCountriesStates(Array.from(JSON.parse(data)))
     } catch (error) {
-        console.log('Error in reading file.', error)
+        console.log("Error in reading file.", error)
         throw error
     }
 }
@@ -21,7 +21,7 @@ function getCountriesStates(data: Array<any>): [Array<Country>, Array<State>] {
 
     data.forEach((country: any) => {
         countries.push({
-            ID: -1,
+            id: -1,
             name: country.name,
             iso2: country.iso2,
             dialCode: country.phone_code,
@@ -34,7 +34,7 @@ function getCountriesStates(data: Array<any>): [Array<Country>, Array<State>] {
         })
         country.states.forEach((state: any) => {
             states.push({
-                ID: -1,
+                id: -1,
                 name: state.name,
                 code: state.state_code,
                 latitude: state.latitude,
@@ -57,7 +57,7 @@ async function seed() {
             await db.country.deleteMany()
             await db.state.deleteMany()
             console.log(
-                'db tables were aleady seeded, removed the existing rows.'
+                "db tables were aleady seeded, removed the existing rows."
             )
         }
 
@@ -81,7 +81,7 @@ async function seed() {
 
         const countryMapper = insertedCountries.reduce(
             (map: { [key: string]: number }, country: Country) => {
-                map[country.name] = country.ID
+                map[country.name] = country.id
                 return map
             },
             {}
@@ -89,25 +89,23 @@ async function seed() {
 
         const insertedStates = await Promise.all(
             states.map((state) => {
-               return db.state.create({
+                return db.state.create({
                     data: {
                         name: String(state.name),
                         code: String(state.code),
                         latitude: String(state.latitude),
                         longitude: String(state.longitude),
-                        countryID: countryMapper[state.countryName],
+                        countryId: countryMapper[state.countryName],
                     },
                 })
             })
         )
 
-        console.log(insertedStates)
-
         console.log(
-            `Successfully seeded, inserted states: ${insertedCountries.length}, inserted states: ${insertedStates.length}`
+            `Successfully seeded, inserted countries: ${insertedCountries.length}, inserted states: ${insertedStates.length}`
         )
     } catch (error) {
-        console.error('Error in seed function: ', error)
+        console.error("Error in seed function: ", error)
         throw error
     }
 }
