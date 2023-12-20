@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express"
 import express from "express"
 import { validationResult, query } from "express-validator"
-import CustomError from "../utils/cusromError"
+import CustomError from "../errorHandler/customError"
 import * as countryService from "../services/country.service"
 import { Country } from "../types"
 import { toPascalCase } from "../utils/format"

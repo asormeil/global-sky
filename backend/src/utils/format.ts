@@ -1,6 +1,6 @@
-import CustomError from "./cusromError"
+import CustomError from "../errorHandler/customError"
 
-export const toPascalCase = (str: string) => {
+export const toPascalCase = (str: string | any) => {
     try {
         return str
             .toLowerCase()
@@ -17,4 +17,3 @@ export const toPascalCase = (str: string) => {
         )
     }
 }
-

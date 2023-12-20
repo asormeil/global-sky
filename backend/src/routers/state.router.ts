@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from "express"
 import { stateList, stateListByCountry } from "../services/state.service"
 import { query, validationResult } from "express-validator"
 import { State } from "../types"
-import CustomError from "../utils/cusromError"
+import CustomError from "../errorHandler/customError"
 import { toPascalCase } from "../utils/format"
 
 export const stateRouter = express.Router()

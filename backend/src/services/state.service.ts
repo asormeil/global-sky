@@ -21,6 +21,7 @@ export async function stateList(): Promise<any> {
     })
 }
 
+
 export async function stateListByCountry(
     inputCountryName: string
 ): Promise<State[]> {
