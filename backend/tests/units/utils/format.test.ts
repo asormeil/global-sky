@@ -18,8 +18,4 @@ describe("To Pascal Function", () => {
     it("handles mixed case correctly and digits", () => {
         expect(toPascalCase("HeLLo WoR7Ld")).toBe("Hello Wor7ld")
     })
-
-    it("returns custom error when input is not string", () => {
-        expect(() => toPascalCase(null)).toThrow(CustomError)
-    })
 })

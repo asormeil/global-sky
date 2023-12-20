@@ -21,10 +21,9 @@ export async function stateList(): Promise<any> {
     })
 }
 
-
 export async function stateListByCountry(
     inputCountryName: string
-): Promise<State[]> {
+): Promise<State[] | null> {
     const states = await db.state.findMany({
         where: {
             country: { name: inputCountryName },
@@ -40,9 +39,23 @@ export async function stateListByCountry(
             },
         },
     })
+    return states
+}
 
-    return states.map((state) => ({
-        ...state,
-        countryName: state.country?.name,
-    }))
+export const getStateById = async (stateId: number): Promise<State | null> => {
+    const state = await db.state.findUnique({
+        where: { id: stateId },
+        select: {
+            id: true,
+            name: true,
+            code: true,
+            latitude: true,
+            longitude: true,
+            country: {
+                select: { name: true, iso2: true, native: true },
+            },
+        },
+    })
+
+    return state
 }

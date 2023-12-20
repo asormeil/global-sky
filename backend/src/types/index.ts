@@ -17,8 +17,7 @@ export type State = {
     code: string
     latitude: string
     longitude: string
-    countryName: string
-    countryId?: number
+    country: Country | any
 }
 
 
