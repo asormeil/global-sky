@@ -1,8 +1,14 @@
 const fs = require("fs").promises
 const path = require("path")
-
-import { Country, State } from "../src/types"
+import { User, Country, State, Role } from "../src/types"
 import { db } from "../src/utils/db.server"
+
+const ADMIN: User = {
+    name: "admin",
+    email: String(process.env.ADMIN_EMAIL),
+    password: String(process.env.ADMIN_PASSWORD),
+    role: Role.ADMIN,
+}
 
 async function readFiles(): Promise<[Array<Country>, Array<State>]> {
     const filePath = path.join(__dirname, "./countries.json")
@@ -39,7 +45,7 @@ function getCountriesStates(data: Array<any>): [Array<Country>, Array<State>] {
                 code: state.state_code,
                 latitude: state.latitude,
                 longitude: state.longitude,
-                countryName: country.name,
+                country: country,
             })
         })
     })
@@ -54,8 +60,9 @@ async function seed() {
         const stateCount = await db.state.count()
 
         if (countyCount !== 0 || stateCount !== 0) {
-            await db.country.deleteMany()
             await db.state.deleteMany()
+            await db.country.deleteMany()
+
             console.log(
                 "db tables were aleady seeded, removed the existing rows."
             )
@@ -80,7 +87,7 @@ async function seed() {
         )
 
         const countryMapper = insertedCountries.reduce(
-            (map: { [key: string]: number }, country: Country) => {
+            (map: any, country: any) => {
                 map[country.name] = country.id
                 return map
             },
@@ -95,14 +102,22 @@ async function seed() {
                         code: String(state.code),
                         latitude: String(state.latitude),
                         longitude: String(state.longitude),
-                        countryId: countryMapper[state.countryName],
+                        countryId: countryMapper[state.country["name"]],
                     },
                 })
             })
         )
+        const users = await db.user.create({
+            data: {
+                name: ADMIN.name,
+                email: ADMIN.email,
+                role: ADMIN.role,
+                password: ADMIN.password,
+            },
+        })
 
         console.log(
-            `Successfully seeded, inserted countries: ${insertedCountries.length}, inserted states: ${insertedStates.length}`
+            `Successfully seeded, inserted countries: ${insertedCountries.length}, inserted states: ${insertedStates.length}, inserted admin: ${ADMIN.email}`
         )
     } catch (error) {
         console.error("Error in seed function: ", error)

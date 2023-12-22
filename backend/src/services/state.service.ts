@@ -35,7 +35,7 @@ export async function stateListByCountry(
             latitude: true,
             longitude: true,
             country: {
-                select: { name: true },
+                select: { name: true, iso2: true },
             },
         },
     })
@@ -52,7 +52,7 @@ export const getStateById = async (stateId: number): Promise<State | null> => {
             latitude: true,
             longitude: true,
             country: {
-                select: { name: true, iso2: true, native: true },
+                select: { name: true, iso2: true },
             },
         },
     })

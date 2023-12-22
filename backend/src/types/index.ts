@@ -1,7 +1,9 @@
-export type Country = {
-    id: number
+export interface BasicCountry {
+    id?: number
     name: string
     iso2: string
+}
+export interface Country extends BasicCountry {
     dialCode: string
     flag: string
     region: string
@@ -12,12 +14,23 @@ export type Country = {
 }
 
 export type State = {
-    id: number
+    id?: number
     name: string
     code: string
     latitude: string
     longitude: string
-    country: Country | any
+    country: Country | BasicCountry
+}
+
+export interface User {
+    name: string
+    email: string
+    password: string
+}
+export interface DetailedUser extends User {
+    id: number
+    createdAT: Date
+    role: string
 }
 
 

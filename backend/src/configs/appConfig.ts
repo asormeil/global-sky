@@ -7,6 +7,21 @@ if (!process.env.PORT) {
     process.exit(1);
 }
 
+if (!process.env.ADMIN_EMAIL) {
+    console.error(`admin email not found to set up, shutting down ...`);
+    process.exit(1);
+}
+
+if (!process.env.ADMIN_PASSWORD) {
+    console.error(`admin password not found to set up, shutting down ...`);
+    process.exit(1);
+}
+
+if (!process.env.JWT_SECRET_KEY) {
+    console.error(`jwt secret code not found to set up, shutting down ...`);
+    process.exit(1);
+}
+
 process.on("uncaughtException", (error) => {
     console.error(`Unexpected error: ${error}, shutting down ...`);
     process.exit(1);
