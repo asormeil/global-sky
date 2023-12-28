@@ -1,35 +1,36 @@
-import * as dotenv from "dotenv";
+import * as dotenv from "dotenv"
+import { logger } from "./logger"
+dotenv.config()
 
-dotenv.config();
 
 if (!process.env.PORT) {
-    console.error(`PORT not found to set up, shutting down ...`);
-    process.exit(1);
+    logger.error(`PORT not found to set up, shutting down ...`)
+    process.exit(1)
 }
 
 if (!process.env.ADMIN_EMAIL) {
-    console.error(`admin email not found to set up, shutting down ...`);
-    process.exit(1);
+    logger.error(`admin email not found to set up, shutting down ...`)
+    process.exit(1)
 }
 
 if (!process.env.ADMIN_PASSWORD) {
-    console.error(`admin password not found to set up, shutting down ...`);
-    process.exit(1);
+    logger.error(`admin password not found to set up, shutting down ...`)
+    process.exit(1)
 }
 
 if (!process.env.JWT_SECRET_KEY) {
-    console.error(`jwt secret code not found to set up, shutting down ...`);
-    process.exit(1);
+    logger.error(`jwt secret code not found to set up, shutting down ...`)
+    process.exit(1)
 }
 
-process.on("uncaughtException", (error) => {
-    console.error(`Unexpected error: ${error}, shutting down ...`);
-    process.exit(1);
-});
+process.on("uncaughtException", (error: Error) => {
+    logger.error(`Unexpected error: ${error}, shutting down ...`, error)
+    process.exit(1)
+})
 
-process.on("unhandledRejection", (error) => {
-    console.error(`Unexpected rejection: ${error}, shutting down ...`);
-    process.exit(1);
-});
+process.on("unhandledRejection", (error: Error) => {
+    logger.error(`Unexpected rejection: ${error}, shutting down ...`, error)
+    process.exit(1)
+})
 
-export const PORT: number = parseInt(process.env.PORT as string, 10);
+export const PORT: number = parseInt(process.env.PORT as string, 10)

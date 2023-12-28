@@ -24,13 +24,13 @@ countryRouter.get(
 // GET: countries in a region
 countryRouter.get(
     "/by-region",
-    [query("region").exists().withMessage("Region is required!")],
+    [query("region").exists().withMessage("region is required!")],
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const errors = validationResult(request)
             if (!errors.isEmpty()) {
                 new CustomError(
-                    `Error in validating the request: ${JSON.stringify(
+                    `error in validating the request: ${JSON.stringify(
                         errors.array()
                     )}`,
                     400
@@ -42,7 +42,7 @@ countryRouter.get(
                 await countryService.countryListByRegion(toPascalCase(region))
 
             if (countriesByRegion.length === 0) {
-                throw new CustomError(`No country was found in ${region}!`, 404)
+                throw new CustomError(`no country was found in ${region}!`, 404)
             }
 
             response.status(200).json({ data: countriesByRegion })

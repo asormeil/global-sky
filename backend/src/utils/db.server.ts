@@ -1,5 +1,6 @@
 // here we interact with our database using prisma
 // so, we need to import prisma client
+import { logger } from "../configs/logger"
 
 import { PrismaClient } from "@prisma/client"
 
@@ -20,6 +21,7 @@ declare global {
 
 if (!global.__db) {
     global.__db = new PrismaClient({ log: ["error"] })
+    logger.info("Database client is created.")
 }
 
 db = global.__db

@@ -10,7 +10,7 @@ export const auth = (
     const token = request.header("x-auth-token")
     if (!token) {
         // pass the exception to the error handler
-        throw new CustomError("Access denied, no token provided.", 401)
+        throw new CustomError("access denied, no token provided.", 401)
     }
 
     try {
@@ -25,6 +25,6 @@ export const auth = (
         next()
     } catch (error) {
         // terminate the request processing chain
-        new CustomError("Invalid token. Error in decoding the token", 400)
+        new CustomError("invalid token. error in decoding the token", 400)
     }
 }

@@ -33,7 +33,7 @@ export const createUser = async (user: User): Promise<DetailedUser> => {
 
     if (existingUser) {
         throw new CustomError(
-            "User with this email already exist in the database!",
+            "user with this email already exist in the database!",
             400
         )
     }
@@ -52,23 +52,34 @@ export const createUser = async (user: User): Promise<DetailedUser> => {
 export const verifyUser = async (user: {
     email: string
     password: string
-}): Promise<Boolean | CustomError> => {
+}): Promise<Boolean | undefined> => {
     const userRecord = await db.user.findUnique({
-        where: { email: user.email },
+        where: { email: user.email, password: user.password },
         select: { email: true, name: true, createdAT: true, password: true },
     })
 
     if (!userRecord) {
-        return new CustomError(`user with ${user.email} not found`, 404)
-    }
-    const isValid: boolean = await comparePassword(
-        user.password,
-        userRecord.password
-    )
-
-    if (!isValid) {
-        return new CustomError(`email or password is not valid.`, 404)
+        throw new CustomError(`user with ${user.email} not found`, 404)
     } else {
-        return true
+        const isValid: boolean = await comparePassword(
+            user.password,
+            userRecord.password
+        )
+        if (!isValid) {
+            throw new CustomError(`email or password is not valid.`, 404)
+        } else {
+            return true
+        }
     }
+}
+
+export const getUserByEmail = async (
+    email: string
+): Promise<DetailedUser | null>  => {
+    return await db.user.findUnique({
+        where: {
+            email: email,
+        },
+    })
+
 }

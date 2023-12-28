@@ -1,4 +1,3 @@
-import CustomError from "../../../src/errorHandler/customError"
 import { toPascalCase } from "../../../src/utils/format"
 import { describe, expect, it } from "@jest/globals"
 

@@ -4,6 +4,7 @@ import { query, validationResult, param } from "express-validator"
 import { State } from "../types"
 import CustomError from "../errorHandler/customError"
 import { toPascalCase } from "../utils/format"
+import { auth } from "../middlewares/auth.middleware"
 
 export const stateRouter = express.Router()
 
@@ -15,7 +16,7 @@ stateRouter.get(
             const errors: any = validationResult(request)
             if (!errors.isEmpty()) {
                 throw new CustomError(
-                    `Error in validating the request: ${JSON.stringify(
+                    `error in validating the request: ${JSON.stringify(
                         errors.array()
                     )}`,
                     400
@@ -25,7 +26,7 @@ stateRouter.get(
             const state: State | null = await getStateById(stateId)
             if (!state) {
                 throw new CustomError(
-                    `The state by ${stateId} was not found!`,
+                    `the state by ${stateId} was not found!`,
                     404
                 )
             } else {
@@ -43,14 +44,14 @@ stateRouter.get(
         query("country")
             .exists()
             .isLength({ min: 2 })
-            .withMessage("Country is required!"),
+            .withMessage("country is required!"),
     ],
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const errors: any = validationResult(request)
             if (!errors.isEmpty()) {
                 throw new CustomError(
-                    `Error in validating the request: ${JSON.stringify(
+                    `error in validating the request: ${JSON.stringify(
                         errors.array()
                     )}`,
                     400
@@ -62,7 +63,7 @@ stateRouter.get(
             )
             if (!statesByCountry || statesByCountry.length === 0) {
                 throw new CustomError(
-                    `No state was found in ${countryName}!`,
+                    `no state was found in ${countryName}!`,
                     404
                 )
             }
