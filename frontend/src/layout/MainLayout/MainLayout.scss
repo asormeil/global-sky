@@ -1,0 +1,18 @@
+@import "../../globalColor.scss";
+
+.main {
+   background-color: $backgroundColor;
+   color: $titleColor;
+}
+
+.header {
+    max-height: 100px;
+    background-color: $headerColor;
+    color: $lightTextColor;
+}
+
+.footer {
+    max-height: 30px;
+    background-color: $headerColor; 
+    color: $lightTextColor;
+}

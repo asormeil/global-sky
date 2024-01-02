@@ -44,30 +44,3 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-
-# Folder Structure
-
-This project follows a modular and scalable structure suitable for both small and large React applications. Here's a brief overview of the directory structure and the purpose of each folder:
-
-- `src/`: The main source directory for the application.
-  - `assets/`: Contains all the static resources like images, fonts, and other similar files.
-  - `components/`: Reusable React presentational components that can be shared across the application.
-  - `containers/`: Components that are connected to the state management logic or contexts.
-  - `hooks/`: Custom React hooks for managing stateful logic and side effects.
-  - `lib/`: External libraries and scripts that do not belong to the components or utilities.
-  - `providers/`: React context providers for managing global application state, themes, and more.
-  - `routes/`: Components and utilities for routing within the application.
-  - `stores/`: If using state management like Redux, this includes actions, reducers, and the store setup.
-  - `utils/`: Utility functions and helpers for common tasks throughout the app.
-
-- `App.css`: Global styles for the application.
-- `App.test.tsx`: Test suite for the main `App` component.
-- `App.tsx`: The root React component that includes the primary application layout.
-- `index.css`: Base CSS for styling the application.
-- `index.tsx`: The entry point for React to mount the app onto the DOM.
-- `react-app-env.d.ts`: TypeScript definitions specific to the app.
-- `reportWebVitals.ts`: Utilities for measuring and monitoring performance.
-- `setupTests.ts`: Configuration and setup for the testing environment.
-
-This structure aims to keep the project organized and maintainable, ensuring that each file has a clear and defined purpose.
