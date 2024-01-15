@@ -1,16 +1,18 @@
 const storageKey = "global_sky_user_token"
 
 export class AppStorage {
-    getToken(): string {
-        return JSON.stringify(
-            window.localStorage.getItam(`${storageKey}`) as string
-        )
+    getToken(): string | null {
+        const key = localStorage.getItem(storageKey)
+        if (key) {
+            return JSON.stringify(key as string)
+        }
+        return null
     }
     setToken(token: string) {
-        window.localStorage.setItem(storageKey, JSON.stringify(token))
+        localStorage.setItem(storageKey, JSON.stringify(token))
     }
 
     clearToken() {
-        window.localStorage.removeItem(storageKey)
+        localStorage.removeItem(storageKey)
     }
 }

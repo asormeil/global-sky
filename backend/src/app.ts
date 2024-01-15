@@ -8,7 +8,11 @@ import { debug } from "./configs/debugger"
 
 const app = express()
 
-app.use(cors())
+app.use(
+    cors({
+        exposedHeaders: ["x-auth-token"],
+    })
+)
 
 // here we are applying middleware functions
 app.use(express.json())
@@ -17,7 +21,6 @@ app.use((req, res, next) => {
     debug(`Incoming request: ${req.method} ${req.path}`)
     next()
 })
-
 
 app.use("/api/countries", countryRouter)
 app.use("/api/states", stateRouter)

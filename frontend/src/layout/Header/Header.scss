@@ -1,4 +1,4 @@
-@import "../../globalColor.scss";
+@import "../../assets/styles/globalColor.scss";
 
 
 .container{
@@ -6,6 +6,8 @@
     position: relative;
     justify-content: center;
     background-color: $headerColor;
+    padding:0;
+    margin:0
 
 }
 

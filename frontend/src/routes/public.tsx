@@ -1,10 +1,14 @@
 import { lazyImport } from "../utils/lazyImport"
+import React from "react"
 
-const { AuthLayout } = lazyImport(
-    () => import("../features/auth/layout"),
-    "AuthLayout"
+const { AuthRoutes } = lazyImport(
+    () => import("../features/auth/routes"),
+    "AuthRoutes"
 )
 
-export const PublicRoutes = () => {
-    return AuthLayout
-}
+export const publicRoutes = [
+    {
+        path: "/auth/*",
+        element: <AuthRoutes />,
+    },
+]

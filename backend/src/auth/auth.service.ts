@@ -24,7 +24,9 @@ export const comparePassword = async (
     return await bcrypt.compare(password, hashedPassword)
 }
 
-export const createUser = async (user: User): Promise<DetailedUser> => {
+export const createUser = async (
+    user: User
+): Promise<DetailedUser | CustomError> => {
     const existingUser = await db.user.findUnique({
         where: {
             email: user.email,
@@ -32,9 +34,9 @@ export const createUser = async (user: User): Promise<DetailedUser> => {
     })
 
     if (existingUser) {
-        throw new CustomError(
+        return new CustomError(
             "user with this email already exist in the database!",
-            400
+            409 //conflict code
         )
     }
 
@@ -66,7 +68,7 @@ export const verifyUser = async (user: {
             userRecord.password
         )
         if (!isValid) {
-            throw new CustomError(`email or password is not valid.`, 404)
+            throw new CustomError(`email or password is not valid.`, 403)
         } else {
             return true
         }
@@ -75,11 +77,10 @@ export const verifyUser = async (user: {
 
 export const getUserByEmail = async (
     email: string
-): Promise<DetailedUser | null>  => {
+): Promise<DetailedUser | null> => {
     return await db.user.findUnique({
         where: {
             email: email,
         },
     })
-
 }

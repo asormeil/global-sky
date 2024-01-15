@@ -1,0 +1,34 @@
+// button colors
+$primaryColor: #146C94;
+$secondaryColor: #19A7CE;
+
+$hoverPrimaryColor: #AFD3E2;
+$hoverSecondaryColor: #dcdcdc;
+
+$lightTextColor: #F6F1F1;
+
+$headerColor: #146C94;
+$footerColor: #146C94;
+
+$backgroundColor: #F6F1F1;
+$iconColor: #19A7CE;
+
+$titleColor: #146C94;
+$textColor: #000000;
+$subTitle: #868e96;
+
+// css variables to access in components
+:root {
+    --primary-color: #146C94;  // $primaryColor
+    --secondary-color: #19A7CE;  // $secondaryColor
+    --hover-primary-color: #AFD3E2;  // $hoverPrimaryColor
+    --hover-secondary-color: #dcdcdc;  // $hoverSecondaryColor
+    --light-text-color: #F6F1F1;  // $lightTextColor
+    --header-color: #146C94;  // $headerColor
+    --footer-color: #146C94;  // $footerColor
+    --background-color: #F6F1F1;  // $backgroundColor
+    --icon-color: #19A7CE;  // $iconColor
+    --title-color: #146C94;  // $titleColor
+    --text-color: #000000;  // $textColor
+    --sub-title-color: #868e96;  // $subTitle
+}

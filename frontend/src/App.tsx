@@ -1,13 +1,9 @@
 import React from "react"
-import "./App.css"
+import "./assets/styles/globalColor.scss"
 import { MainLayout } from "./layout/MainLayout/MainLayout"
 
 function App() {
-    return (
-        <div className="App">
-            <MainLayout />
-        </div>
-    )
+    return <MainLayout />
 }
 
 export default App

@@ -1,0 +1,51 @@
+@mixin responsive-font-size($small, $medium, $large) {
+
+    font-size: $small;
+
+    @media (min-width: 768px) {
+      font-size: $medium;
+    }
+  
+    @media (min-width: 1024px) {
+      font-size: $large;
+    }
+}
+
+@mixin responsive-image-size($small, $medium, $large) {
+    width: 4rem;
+    height: auto; 
+    max-height: $small;
+
+    @media (min-width: 768px) {
+      max-height: $medium;
+    }
+  
+    @media (min-width: 1024px) {
+      max-height: $large;
+    }
+}
+
+@mixin responsive-banner-size($small, $medium, $large) {
+    width: 8rem;
+    height: auto; 
+    max-height: $small;
+
+    @media (min-width: 768px) {
+      max-height: $medium;
+    }
+  
+    @media (min-width: 1024px) {
+      max-height: $large;
+    }
+}
+
+@mixin responsive-padding($small, $medium, $large){
+    padding: $small;
+    @media (min-width: 768px) {
+        padding: $medium;
+      }
+    
+      @media (min-width: 1024px) {
+        padding: $large;
+      }
+}

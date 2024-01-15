@@ -21,12 +21,10 @@ authRouter.get(
             const email = request.body.user.email
             const user: DetailedUser | null = await getUserByEmail(email)
             if (user) {
-                response
-                    .status(200)
-                    .json({
-                        message: "current user",
-                        data: { email: user.email },
-                    })
+                response.status(200).json({
+                    message: "current user",
+                    data: { email: user.email },
+                })
             }
         } catch (error: any) {
             next(error)
@@ -45,18 +43,17 @@ authRouter.post(
         body("password")
             .exists()
             .isStrongPassword({ minSymbols: 0 })
-            .withMessage("password is not valid"),
+            .withMessage("password is not valid."),
     ],
     async (request: Request, response: Response, next: NextFunction) => {
         try {
             const errors = validationResult(request)
             if (!errors.isEmpty()) {
-                throw new CustomError(
-                    `Error in validating the request: ${JSON.stringify(
+                response.status(400).json({
+                    message: `Error in validating the request: ${JSON.stringify(
                         errors.array()
                     )}`,
-                    400
-                )
+                })
             }
             const newUser: User = {
                 name: request.body.name,
@@ -64,14 +61,20 @@ authRouter.post(
                 password: request.body.password,
             }
             const registeredUser = await createUser(newUser)
-            const token = generateToken(registeredUser)
+            if (registeredUser instanceof CustomError) {
+                response.status(registeredUser.statusCode).json({
+                    message: registeredUser.message,
+                })
+            } else {
+                const token = generateToken(registeredUser)
 
-            const { name, email, createdAT } = registeredUser
+                const { name, email, createdAT } = registeredUser
 
-            response.header({ "x-auth-token": token }).status(200).json({
-                message: "successful register.",
-                data: { name, email, createdAT },
-            })
+                response.header({ "x-auth-token": token }).status(200).json({
+                    message: "successful register.",
+                    data: { name, email, createdAT },
+                })
+            }
         } catch (error: any) {
             next(error)
         }

@@ -1,13 +1,30 @@
 import React from "react"
-import "./MainLayout.scss"
 import { Header } from "../Header/Header"
+import { MainProvider } from "../../providers"
+import { AppRoutes } from "../../routes"
+import styled from "styled-components"
 
-export const MainLayout: React.FC = () => {
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--background-color);
+    position: relative;
+`
+
+export const MainLayout = () => {
     return (
         <>
             <Header />
-            <div className="main">Hello React</div>
-            <div className="footer">We are footer</div>
+            <Container>
+                <MainProvider>
+                    <AppRoutes />
+                </MainProvider>
+            </Container>
         </>
     )
 }
