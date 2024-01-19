@@ -1,3 +1,4 @@
+import { AxiosError } from "axios"
 import { axios } from "../../../lib/axios"
 import { User } from "../type"
 
@@ -17,15 +18,14 @@ export const register = async (userData: User) => {
     }
     const response = await axios.post("auth/register", registerData)
     try {
-        if (response.status != 200) {
-            registerResponse.error = response.data.message
+        if (response instanceof AxiosError) {
+            registerResponse.error = response.response?.data.message
         } else {
             registerResponse.data = response.data
+            // change the status of user to logged in
         }
         return registerResponse
     } catch (error) {
-        console.log(error)
-
         return Promise.reject(error)
     }
 }

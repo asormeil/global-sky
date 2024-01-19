@@ -4,7 +4,7 @@ import { API_BASE_URL } from "../config"
 
 const storage = new AppStorage()
 
-// ths lib attaches the token header to request and makes data from response
+// the lib attaches the token header to request and makes data from response
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
     const token = storage.getToken()
     if (token) {
@@ -26,6 +26,7 @@ axios.interceptors.response.use(
         return response
     },
     (error) => {
-        return error.response
+        console.log(error)
+        return error
     }
 )

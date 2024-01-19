@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import { useNavigate } from "react-router-dom"
 
-
 import { Form } from "../../../../components/Form"
 import { Input } from "../../../../components/Input"
 import { Button } from "../../../../components/Button"
@@ -24,16 +23,20 @@ export const RegisterForm = () => {
         mode: "onChange",
     })
 
+    const navigate = useNavigate()
+
     const onFormSubmit = async (data: any) => {
-        const registerRespone: ResType = await register(data)
-        console.log(registerRespone)
+        const registerRespone: ResType | any = await register(data)
+
         if (registerRespone.error) {
             toast.error(registerRespone.error.toString(), {
                 position: "bottom-center",
             })
-        }
-        else {
-            //useNavigate()
+        } else {
+            toast.info("Welcome to Global Sky", {
+                position: "top-left",
+            })
+            navigate("/weather")
         }
     }
 
@@ -45,7 +48,7 @@ export const RegisterForm = () => {
         >
             <Wrapper>
                 <Label text="Register Account" type="title" />
-                <ToastContainer  />
+                <ToastContainer />
                 <Row>
                     <Controller
                         control={control}
